@@ -1,0 +1,21 @@
+{
+  "name": "felix-trade",
+  "version": "2.0.108",
+  "description": "Connect Cursor agents to Felix for cross-market research, backtests, account controls, and owner-authorized trading.",
+  "author": {
+    "name": "Felix Trade"
+  },
+  "homepage": "https://felix.trade/start",
+  "repository": "https://github.com/imblocksavvy-spec/felix-developer-examples",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "trading",
+    "ai-agents",
+    "prediction-markets",
+    "perpetuals",
+    "options"
+  ],
+  "logo": "https://felix.trade/launch-assets/felix-developer-mark.svg",
+  "mcpServers": "mcp.json"
+}

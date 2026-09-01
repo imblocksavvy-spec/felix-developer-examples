@@ -33,6 +33,24 @@ Client configuration examples:
 - [Cursor](mcp/cursor.json)
 - [Codex](mcp/codex-config.toml)
 
+### Cursor Marketplace package
+
+This repository is also structured as a Cursor Plugin. The checked-in
+`.cursor-plugin/plugin.json` and root `mcp.json` install the exact public Felix
+MCP release without storing a credential in the repository.
+
+Before connecting through Cursor, run guided onboarding with the Cursor client
+selected:
+
+```bash
+npx -y --package felix-mcp@2.0.108 \
+  felix-keys onboard --accept-terms --client cursor
+```
+
+Onboarding keeps the owner identity, Felix credential, and recovery material in
+macOS Keychain. Installing the plugin does not fund an account or grant live
+execution authority.
+
 ## Try a workflow
 
 - [Map Bitcoin across fragmented markets](prompts/cross-market-btc-map.md)
