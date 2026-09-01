@@ -35,10 +35,13 @@ Client configuration examples:
 
 ## Try a workflow
 
+- [Map Bitcoin across fragmented markets](prompts/cross-market-btc-map.md)
 - [Prediction-market research](prompts/polymarket-research.md)
 - [Crypto risk review](prompts/crypto-risk-review.md)
 - [Backtest before authorization](prompts/backtest-first-strategy.md)
 - [Safe MCP workflow order](mcp/workflows.md)
+
+The cross-market map is the best first example. It searches prediction markets, perpetuals, and options through the same Felix connection, then compares canonical instruments and read-only order previews without placing a trade.
 
 ## Use the API directly
 
