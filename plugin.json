@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "felix-trade",
+  "version": "2.0.108",
+  "description": "Connect AI agents to Felix for cross-market research, backtests, account controls, and owner-authorized trading.",
+  "author": {
+    "name": "Felix Trade",
+    "url": "https://felix.trade"
+  },
+  "homepage": "https://felix.trade/start",
+  "repository": "https://github.com/imblocksavvy-spec/felix-developer-examples",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "trading",
+    "ai-agents",
+    "prediction-markets",
+    "perpetuals",
+    "options"
+  ]
+}

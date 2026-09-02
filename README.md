@@ -33,23 +33,36 @@ Client configuration examples:
 - [Cursor](mcp/cursor.json)
 - [Codex](mcp/codex-config.toml)
 
-### Cursor Marketplace package
+### Install as an agent plugin
 
-This repository is also structured as a Cursor Plugin. The checked-in
-`.cursor-plugin/plugin.json` and root `mcp.json` install the exact public Felix
-MCP release without storing a credential in the repository.
+This repository follows the Agent Plugins 1.0 standard and also includes a
+Cursor-specific manifest. The root `plugin.json`, root `mcp.json`, and
+`.cursor-plugin/plugin.json` install the exact public Felix MCP release without
+storing a credential in the repository.
 
-Before connecting through Cursor, run guided onboarding with the Cursor client
-selected:
+Before installing the plugin in Cursor, VS Code, or GitHub Copilot, run guided
+onboarding without modifying another client's configuration:
 
 ```bash
 npx -y --package felix-mcp@2.0.108 \
-  felix-keys onboard --accept-terms --client cursor
+  felix-keys onboard --accept-terms --client none
 ```
+
+For Claude Desktop, use `--client claude` instead so onboarding can write the
+Claude configuration for you.
 
 Onboarding keeps the owner identity, Felix credential, and recovery material in
 macOS Keychain. Installing the plugin does not fund an account or grant live
 execution authority.
+
+In VS Code, run `Chat: Install Plugin From Source` and enter:
+
+```text
+https://github.com/imblocksavvy-spec/felix-developer-examples
+```
+
+The same package can be submitted to Cursor Marketplace and loaded by other
+Agent Plugins compatible clients.
 
 ## Try a workflow
 

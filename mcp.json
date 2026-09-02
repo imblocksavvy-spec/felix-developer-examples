@@ -1,6 +1,8 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
   "mcpServers": {
     "felix": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "felix-mcp@2.0.108"]
     }
