@@ -14,7 +14,7 @@ The developer should review https://felix.trade/legal, then run this command in
 their own terminal:
 
 ```bash
-npx -y --package felix-mcp@2.0.108 \
+npx -y --package felix-mcp@2.0.110 \
   felix-keys onboard --accept-terms --client none
 ```
 
@@ -34,7 +34,7 @@ Use this stdio configuration:
   "mcpServers": {
     "felix": {
       "command": "npx",
-      "args": ["-y", "felix-mcp@2.0.108"]
+      "args": ["-y", "felix-mcp@2.0.110"]
     }
   }
 }

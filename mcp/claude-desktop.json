@@ -2,7 +2,7 @@
   "mcpServers": {
     "felix": {
       "command": "npx",
-      "args": ["-y", "felix-mcp@2.0.108"]
+      "args": ["-y", "felix-mcp@2.0.110"]
     }
   }
 }

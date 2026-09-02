@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "felix-trade",
-  "version": "2.0.108",
+  "version": "2.0.110",
   "description": "Connect AI agents to Felix for cross-market research, backtests, account controls, and owner-authorized trading.",
   "author": {
     "name": "Felix Trade",

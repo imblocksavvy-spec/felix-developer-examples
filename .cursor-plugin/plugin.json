@@ -1,6 +1,6 @@
 {
   "name": "felix-trade",
-  "version": "2.0.108",
+  "version": "2.0.110",
   "description": "Connect Cursor agents to Felix for cross-market research, backtests, account controls, and owner-authorized trading.",
   "author": {
     "name": "Felix Trade"

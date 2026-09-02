@@ -13,7 +13,7 @@ Felix provides owner-controlled trading infrastructure across supported predicti
 Requires Node.js 20.10 or newer on macOS.
 
 ```bash
-npx -y --package felix-mcp@2.0.108 \
+npx -y --package felix-mcp@2.0.110 \
   felix-keys onboard --accept-terms --client claude
 ```
 
@@ -44,7 +44,7 @@ Before installing the plugin in Cursor, VS Code, or GitHub Copilot, run guided
 onboarding without modifying another client's configuration:
 
 ```bash
-npx -y --package felix-mcp@2.0.108 \
+npx -y --package felix-mcp@2.0.110 \
   felix-keys onboard --accept-terms --client none
 ```
 
@@ -104,7 +104,7 @@ See [api/node/README.md](api/node/README.md) for details.
 
 ## Current release
 
-- MCP package: `felix-mcp@2.0.108`
+- MCP package: `felix-mcp@2.0.110`
 - API base URL: `https://api.felix.trade`
 - Documentation: [felix.trade/docs](https://felix.trade/docs)
 - Runtime status: [felix.trade/status](https://felix.trade/status)
