@@ -74,6 +74,22 @@ Agent Plugins compatible clients.
 
 The cross-market map is the best first example. It searches prediction markets, perpetuals, and options through the same Felix connection, then compares canonical instruments and read-only order previews without placing a trade.
 
+## Tools
+
+Felix MCP exposes 125 tools. A practical first set is:
+
+- `get_status`: verify the public API, local MCP, and active credential state.
+- `get_custody_recovery_status`: verify that the local owner identity has a matching encrypted recovery file.
+- `search_markets`: search prediction markets, perpetuals, options, crypto, and supported equities with one query.
+- `get_quote`: inspect a current instrument quote and its venue, product type, and tradeability.
+- `get_option_chain`: inspect crypto option expiries, strikes, greeks, implied volatility, and quoted spreads.
+- `research_market`: return historical research cards and agent-ready market signals.
+- `preview_order`: calculate the selected venue, estimated fill, fees, collateral, minimums, and funding plan without moving money.
+- `backtest`: run a compiled or hand-written strategy on historical market data.
+- `place_order`: submit an owner-authorized live order under the account's active policy and runtime controls.
+
+Read [the Felix documentation](https://felix.trade/docs) for the complete tool and workflow reference.
+
 ## Use the API directly
 
 The direct examples expect a Felix credential from your application secret manager. Never put a key, owner key, recovery code, seed phrase, signature, or signed transaction in a prompt, repository, URL, or log.
