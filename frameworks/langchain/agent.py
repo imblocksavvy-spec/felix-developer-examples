@@ -10,6 +10,10 @@ import os
 from langchain_mcp_adapters.client import MultiServerMCPClient
 from langgraph.prebuilt import create_react_agent
 
+# Read and preview tools only. This agent can't place orders or move money.
+# Add order tools only behind your own approval step and a key with tight limits.
+READ_ONLY = {"get_status", "search_markets", "get_quote", "get_orderbook", "research_market", "preview_order"}
+
 
 async def main() -> None:
     client = MultiServerMCPClient({
@@ -19,9 +23,9 @@ async def main() -> None:
             "headers": {"Authorization": f"Bearer {os.environ['FELIX_API_KEY']}"},
         }
     })
-    tools = await client.get_tools()
+    tools = [tool for tool in await client.get_tools() if tool.name in READ_ONLY]
     agent = create_react_agent("openai:gpt-4.1", tools)
-    result = await agent.ainvoke({"messages": "Quote BTC and preview a $50 long. Do not place it."})
+    result = await agent.ainvoke({"messages": "Quote BTC and preview a $50 long."})
     print(result["messages"][-1].content)
 
 
