@@ -1,39 +1,59 @@
 <p align="center">
-  <img src="https://felix.trade/launch-assets/felix-developer-mark-128.png" width="88" height="88" alt="Felix Trade" />
+  <img src="https://felix.trade/launch-assets/felix-developer-mark-128.png" width="88" height="88" alt="Felix" />
 </p>
 
 <h1 align="center">Felix developer examples</h1>
 
-Practical starting points for connecting AI agents to Felix through MCP or the direct API.
+Agentic trading infrastructure for everyone. Connect an AI agent to one Felix account for crypto perpetuals, prediction markets and options, through MCP or the REST API.
 
-Felix provides owner-controlled trading infrastructure across supported prediction markets, crypto markets, and options. These examples begin with market data, account inspection, and backtests. Real-money execution exists only after separate owner authorization and remains subject to the account policy and current runtime state.
+## Connect in one line
 
-## Start with MCP
+Create a key in the [Felix app](https://app.felix.trade) under Developers, then add the hosted MCP server.
 
-Requires Node.js 20.10 or newer on macOS.
+Claude Code:
 
 ```bash
-npx -y --package felix-mcp@2.0.110 \
-  felix-keys onboard --accept-terms --client claude
+claude mcp add --transport http felix https://mcp.felix.trade/mcp \
+  --header "Authorization: Bearer fk_YOUR_KEY"
 ```
 
-Review the [Felix terms](https://felix.trade/legal) before running onboarding. The owner identity and Felix credentials stay in macOS Keychain and outside model context.
+Cursor (`~/.cursor/mcp.json`) and any client that can send a header:
 
-After reconnecting your MCP client, start with:
-
-```text
-Read felix://getting-started. Call get_status and get_custody_recovery_status.
-Require recovery ready, verify the active account, and quote BTC.
-Do not authorize or place a trade.
+```json
+{
+  "mcpServers": {
+    "felix": {
+      "url": "https://mcp.felix.trade/mcp",
+      "headers": { "Authorization": "Bearer fk_YOUR_KEY" }
+    }
+  }
+}
 ```
 
-Client configuration examples:
+To sign on your own machine instead, install the local server:
 
-- [Claude Desktop](mcp/claude-desktop.json)
-- [Cursor](mcp/cursor.json)
-- [Codex](mcp/codex-config.toml)
+```bash
+npm install --global felix-mcp@latest
+```
 
-### Install as an agent plugin
+Its `create_account` tool lets an agent open its own account. The owner key stays on the machine, outside model context.
+
+## Trade real money through the API
+
+1. Register without the app: `POST /v1/register/challenge`, sign it with the owner wallet, then `POST /v1/register` returns a key.
+2. Bind the owner, fund the Arc home with USDC, and finish setup.
+3. Mint an owner-signed live key and place your first order with `POST /v1/orders`.
+
+Every step is in [Registration](https://felix.trade/docs/api/registration). You can rehearse in simulation mode first.
+
+## Agent frameworks
+
+- [OpenAI Agents SDK](frameworks/openai-agents/agent.py)
+- [LangChain and LangGraph](frameworks/langchain/agent.py)
+
+Both connect to the hosted MCP server with your key. Run them with `FELIX_API_KEY` set.
+
+## Install as an agent plugin
 
 This repository follows the Agent Plugins 1.0 standard and also includes a
 Cursor-specific manifest. The root `plugin.json`, root `mcp.json`, and
@@ -44,7 +64,7 @@ Before installing the plugin in Cursor, VS Code, or GitHub Copilot, run guided
 onboarding without modifying another client's configuration:
 
 ```bash
-npx -y --package felix-mcp@2.0.110 \
+npx -y --package felix-mcp@latest \
   felix-keys onboard --accept-terms --client none
 ```
 
@@ -52,7 +72,7 @@ For Claude Desktop, use `--client claude` instead so onboarding can write the
 Claude configuration for you.
 
 Onboarding keeps the owner identity, Felix credential, and recovery material in
-macOS Keychain. Installing the plugin does not fund an account or grant live
+your system credential store. Installing the plugin does not fund an account or grant live
 execution authority.
 
 In VS Code, run `Chat: Install Plugin From Source` and enter:
@@ -67,28 +87,13 @@ Agent Plugins compatible clients.
 ## Try a workflow
 
 - [Map Bitcoin across fragmented markets](prompts/cross-market-btc-map.md)
-- [Prediction-market research](prompts/polymarket-research.md)
+- [Prediction-market research](prompts/prediction-market-research.md)
 - [Crypto risk review](prompts/crypto-risk-review.md)
 - [Backtest before authorization](prompts/backtest-first-strategy.md)
 - [Safe MCP workflow order](mcp/workflows.md)
 
 The cross-market map is the best first example. It searches prediction markets, perpetuals, and options through the same Felix connection, then compares canonical instruments and read-only order previews without placing a trade.
 
-## Tools
-
-Felix MCP exposes 125 tools. A practical first set is:
-
-- `get_status`: verify the public API, local MCP, and active credential state.
-- `get_custody_recovery_status`: verify that the local owner identity has a matching encrypted recovery file.
-- `search_markets`: search prediction markets, perpetuals, options, crypto, and supported equities with one query.
-- `get_quote`: inspect a current instrument quote and its venue, product type, and tradeability.
-- `get_option_chain`: inspect crypto option expiries, strikes, greeks, implied volatility, and quoted spreads.
-- `research_market`: return historical research cards and agent-ready market signals.
-- `preview_order`: calculate the selected venue, estimated fill, fees, collateral, minimums, and funding plan without moving money.
-- `backtest`: run a compiled or hand-written strategy on historical market data.
-- `place_order`: submit an owner-authorized live order under the account's active policy and runtime controls.
-
-Read [the Felix documentation](https://felix.trade/docs) for the complete tool and workflow reference.
 
 ## Use the API directly
 
@@ -102,15 +107,14 @@ node api/node/backtest.mjs BTC
 
 See [api/node/README.md](api/node/README.md) for details.
 
-## Current release
+## Links
 
-- MCP package: `felix-mcp@2.0.110`
+- MCP package: [felix-mcp on npm](https://www.npmjs.com/package/felix-mcp)
+- OpenAPI: [felix.trade/openapi.json](https://felix.trade/openapi.json)
 - API base URL: `https://api.felix.trade`
 - Documentation: [felix.trade/docs](https://felix.trade/docs)
 - Runtime status: [felix.trade/status](https://felix.trade/status)
 - Machine-readable guide: [felix.trade/llms.txt](https://felix.trade/llms.txt)
-
-Pin the exact package version while validating an installation. Runtime status is the authority for current capabilities and venue availability.
 
 ## Safety
 
