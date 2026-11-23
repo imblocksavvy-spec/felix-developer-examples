@@ -2,61 +2,60 @@
 
 Use these steps when helping a developer connect Felix to an MCP client.
 
-## Requirements
+## Option 1: hosted server (any OS)
 
-- macOS
-- Node.js 20.10 or newer
-- A local terminal outside model context
+The developer creates a key in the Felix app (https://app.felix.trade, Developers, then API keys). Never ask them to paste the key into chat; they add it to their client configuration themselves.
 
-## 1. Review terms and create the local identity
-
-The developer should review https://felix.trade/legal, then run this command in
-their own terminal:
+Claude Code:
 
 ```bash
-npx -y --package felix-mcp@2.0.110 \
+claude mcp add --transport http felix https://mcp.felix.trade/mcp \
+  --header "Authorization: Bearer fk_YOUR_KEY"
+```
+
+Clients that take JSON:
+
+```json
+{
+  "mcpServers": {
+    "felix": {
+      "url": "https://mcp.felix.trade/mcp",
+      "headers": { "Authorization": "Bearer fk_YOUR_KEY" }
+    }
+  }
+}
+```
+
+## Option 2: local server with on-device signing
+
+Requires Node.js 20.10 or newer. Guided key setup currently runs on macOS. The developer reviews https://felix.trade/legal, then runs this in their own terminal:
+
+```bash
+npx -y --package felix-mcp@2.0.134 \
   felix-keys onboard --accept-terms --client none
 ```
 
-Felix stores the owner identity, credential, and recovery material in macOS
-Keychain. Do not ask the developer to paste any key, recovery code, seed phrase,
-signature, or signed transaction into chat, source control, a URL, or a log.
+The owner identity, credential, and recovery material stay in the system credential store. Do not ask the developer to paste any key, recovery code, seed phrase, signature, or signed transaction into chat, source control, a URL, or a log.
 
-Claude Desktop users may choose `--client claude` instead so onboarding writes
-the Claude configuration automatically.
-
-## 2. Configure the MCP client
-
-Use this stdio configuration:
+Then use this stdio configuration:
 
 ```json
 {
   "mcpServers": {
     "felix": {
       "command": "npx",
-      "args": ["-y", "felix-mcp@2.0.110"]
+      "args": ["-y", "felix-mcp@2.0.134"]
     }
   }
 }
 ```
 
-VS Code can install the complete Agent Plugin by running
-`Chat: Install Plugin From Source` and entering:
-
-```text
-https://github.com/imblocksavvy-spec/felix-developer-examples
-```
-
-## 3. Verify the read-only path
+## Verify the read-only path
 
 Restart the MCP client, then ask the agent:
 
 ```text
-Read felix://getting-started. Call get_status and get_custody_recovery_status.
-Require recovery ready, verify the active account, and quote BTC.
-Do not authorize or place a trade.
+Call get_status and quote BTC. Do not place a trade.
 ```
 
-Installing the MCP does not fund an account or grant live execution authority.
-The owner must separately authorize any live capability, and every live action
-remains subject to the account policy and current runtime state.
+Installing the MCP does not fund an account or grant live trading. The owner authorizes live trading separately, and every live action stays inside the limits the owner signed.
