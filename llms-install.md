@@ -31,7 +31,7 @@ Clients that take JSON:
 Requires Node.js 20.10 or newer, on macOS, Windows or Linux. The developer reviews https://felix.trade/legal, then runs this in their own terminal:
 
 ```bash
-npx -y --package felix-mcp@2.0.139 \
+npx -y --package felix-mcp@2.0.140 \
   felix-keys onboard --accept-terms --client none
 ```
 
@@ -44,7 +44,7 @@ Then use this stdio configuration:
   "mcpServers": {
     "felix": {
       "command": "npx",
-      "args": ["-y", "felix-mcp@2.0.139"]
+      "args": ["-y", "felix-mcp@2.0.140"]
     }
   }
 }
