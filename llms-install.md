@@ -28,14 +28,14 @@ Clients that take JSON:
 
 ## Option 2: local server with on-device signing
 
-Requires Node.js 20.10 or newer. Guided key setup currently runs on macOS. The developer reviews https://felix.trade/legal, then runs this in their own terminal:
+Requires Node.js 20.10 or newer, on macOS, Windows or Linux. The developer reviews https://felix.trade/legal, then runs this in their own terminal:
 
 ```bash
-npx -y --package felix-mcp@2.0.134 \
+npx -y --package felix-mcp@2.0.136 \
   felix-keys onboard --accept-terms --client none
 ```
 
-The owner identity, credential, and recovery material stay in the system credential store. Do not ask the developer to paste any key, recovery code, seed phrase, signature, or signed transaction into chat, source control, a URL, or a log.
+The owner identity, credential, and recovery material stay in the system credential store: Keychain on macOS, protected storage on Windows, the keyring on Linux, or an encrypted file only the user can read when no keyring exists. Do not ask the developer to paste any key, recovery code, seed phrase, signature, or signed transaction into chat, source control, a URL, or a log.
 
 Then use this stdio configuration:
 
@@ -44,7 +44,7 @@ Then use this stdio configuration:
   "mcpServers": {
     "felix": {
       "command": "npx",
-      "args": ["-y", "felix-mcp@2.0.134"]
+      "args": ["-y", "felix-mcp@2.0.136"]
     }
   }
 }
